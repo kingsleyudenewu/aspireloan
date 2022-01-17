@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\LoanApplicationController;
+use App\Http\Controllers\LoanScheduleController;
 use App\Http\Controllers\LoanTypeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -31,6 +32,10 @@ Route::middleware('auth:api')->group(function () {
 
     // loan applications
     Route::get('my-loans', [LoanApplicationController::class, 'index'])->name('loans.view');
+    Route::get('my-loans/{loanApplication}', [LoanApplicationController::class, 'show'])->name('loans.show');
     Route::post('my-loans/apply', [LoanApplicationController::class, 'create'])->name('loans.apply');
     Route::post('my-loans/approve', [LoanApplicationController::class, 'approve'])->name('loan.approve');
+
+    //loan schedule
+    Route::post('my-loans/remit', [LoanScheduleController::class, 'create'])->name('loans.remit');
 });
