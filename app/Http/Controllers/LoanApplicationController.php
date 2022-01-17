@@ -27,9 +27,19 @@ class LoanApplicationController extends Controller
         return $this->successResponse('Loan application retrieved successfully', $loans);
     }
 
-    public function show(LoanApplication $loanApplication)
+    /**
+     * Fetch al the schedules associated to a loan application
+     *
+     * @param LoanApplication $loanApplication
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function loanSchedule(LoanApplication $loanApplication): \Illuminate\Http\JsonResponse
     {
-
+        $schedules = $this->loanApplicationService->getLoanApplicationByUser($loanApplication->id);
+        if (empty($schedules)) {
+            return $this->notFoundResponse("Loan application not available");
+        }
+        return $this->successResponse('Loan application retrieved successfully', $schedules);
     }
 
     /**

@@ -26,9 +26,8 @@ class LoanApplicationService
             ->when($status, function ($query, $status) {
                 $query->where('status', $status);
             }, function ($query) {
-                return $query->orderBy('status', LoanApplication::PENDING)
-                    ->orderByRaw(DB::raw("FIELD(status, '".LoanApplication::PENDING."',
-            '".LoanApplication::APPROVED."', '".LoanApplication::REJECTED."')"));
+                return $query->orderByRaw(DB::raw("FIELD(status, '".LoanApplication::PENDING."',
+            '".LoanApplication::APPROVED."', '".LoanApplication::REJECTED."') ASC"));
             })
             ->paginate();
     }
@@ -99,7 +98,7 @@ class LoanApplicationService
      * @param int $id
      * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|null
      */
-    public function getLoanApplicatinByUser(int $id)
+    public function getLoanApplicationByUser(int $id)
     {
         return $this->loanApplication->newQuery()
             ->with(['loanType', 'loanSchedule'])
