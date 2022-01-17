@@ -51,7 +51,7 @@ class LoanScheduleService
             ->first();
 
         if (empty($loanSchedule)) {
-            abort(404, "Loan does not exist, all pending loans have been paid");
+            abort(200, "Loan does not exist, all pending loans have been paid");
         }
 
         if ((float) $loanSchedule->principal_balance > (float) Arr::get($attributes, 'amount')) {
